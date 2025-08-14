@@ -32,6 +32,22 @@ def get_synonyms(response_content):
         else:
             print("No synonyms found.")
 
+def get_antonyms(response_content):
+    all_antonyms = []
+    
+    for meaning in response_content["meanings"]:
+        all_antonyms.extend(meaning.get("antonyms", []))
+
+        for definition in meaning["definitions"]:
+            all_antonyms.extend(definition.get("antonyms", []))
+
+    all_antonyms = list(set(all_antonyms))
+
+    if all_antonyms:
+        for antonym in all_antonyms:
+            print(antonym)
+    else:
+        print("No anytonyms found.")
 
 
 def main():
@@ -40,6 +56,7 @@ def main():
     if choice not in [
         "1",
         "2",
+        "3",
     ]:
         print("Invalid choice")
         exit(1)
@@ -55,6 +72,9 @@ def main():
             get_definition(response_content)
         elif choice == "2":
             get_synonyms(response_content)
+        elif choice == "3":
+            get_antonyms(response_content)
+
 
     else:
         print(f"ERROR: {response.status_code}")
