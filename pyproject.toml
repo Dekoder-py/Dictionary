@@ -21,5 +21,5 @@ Homepage = "https://summer.hackclub.com/projects/11298"
 Source = "https://github.com/Dekoder-py/Dictionary"
 
 [project.scripts]
-dictionary = "dictionary-cli.main:main"
+dictionary = "dictionary_cli.main:main"
 
