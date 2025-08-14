@@ -33,9 +33,9 @@ def get_synonyms(response_content):
 
     if all_synonyms:
         for synonym in all_synonyms:
-            print(synonym)
+            print("*", synonym)
     else:
-        print("No synonyms found.")
+        print("[b]No synonyms found.[/b]")
 
 
 def get_antonyms(response_content):
@@ -51,9 +51,9 @@ def get_antonyms(response_content):
 
     if all_antonyms:
         for antonym in all_antonyms:
-            print(antonym)
+            print("*", antonym)
     else:
-        print("No anytonyms found.")
+        print("[b]No anytonyms found.[/b]")
 
 
 def main():
@@ -64,7 +64,7 @@ def main():
         "2",
         "3",
     ]:
-        print("Invalid choice")
+        print("[bold red]Invalid choice[/bold red]")
         exit(1)
 
     word = input("Word: ")
