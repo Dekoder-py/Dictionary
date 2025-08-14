@@ -1,5 +1,7 @@
 from sys import exit
 
+from rich import print
+
 import requests
 
 MENU_TEXT = """Select a number:
@@ -9,32 +11,36 @@ MENU_TEXT = """Select a number:
 """
 
 
-def get_definition(response_content):
-    print(response_content["meanings"][0]["definitions"][0]["definition"])
+def get_definition(word, response_content):
+    definition = response_content["meanings"][0]["definitions"][0]["definition"]
+    part_of_speech = response_content["meanings"][0]["partOfSpeech"]
+
+    print(f"[b]{word.title()}[/b] [u]{part_of_speech.lower()}[/u]: {definition}")
 
 
 def get_synonyms(response_content):
-        all_synonyms = []
+    all_synonyms = []
 
-        # Loop through all meanings
-        for meaning in response_content["meanings"]:
-            all_synonyms.extend(meaning.get("synonyms", []))
+    # Loop through all meanings
+    for meaning in response_content["meanings"]:
+        all_synonyms.extend(meaning.get("synonyms", []))
 
-            for definition in meaning["definitions"]:
-                all_synonyms.extend(definition.get("synonyms", []))
+        for definition in meaning["definitions"]:
+            all_synonyms.extend(definition.get("synonyms", []))
 
-        # Remove duplicates
-        all_synonyms = list(set(all_synonyms))
+    # Remove duplicates
+    all_synonyms = list(set(all_synonyms))
 
-        if all_synonyms:
-            for synonym in all_synonyms:
-                print(synonym)
-        else:
-            print("No synonyms found.")
+    if all_synonyms:
+        for synonym in all_synonyms:
+            print(synonym)
+    else:
+        print("No synonyms found.")
+
 
 def get_antonyms(response_content):
     all_antonyms = []
-    
+
     for meaning in response_content["meanings"]:
         all_antonyms.extend(meaning.get("antonyms", []))
 
@@ -69,12 +75,11 @@ def main():
         response_content = response.json()[0]
 
         if choice == "1":
-            get_definition(response_content)
+            get_definition(word, response_content)
         elif choice == "2":
             get_synonyms(response_content)
         elif choice == "3":
             get_antonyms(response_content)
-
 
     else:
         print(f"ERROR: {response.status_code}")
