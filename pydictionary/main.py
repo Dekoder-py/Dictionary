@@ -11,6 +11,29 @@ MENU_TEXT = """Select a number:
 
 def get_definition(response_content):
     print(response_content["meanings"][0]["definitions"][0]["definition"])
+
+
+def get_synonyms(response_content):
+        all_synonyms = []
+
+        # Loop through all meanings
+        for meaning in response_content["meanings"]:
+            all_synonyms.extend(meaning.get("synonyms", []))
+
+            for definition in meaning["definitions"]:
+                all_synonyms.extend(definition.get("synonyms", []))
+
+        # Remove duplicates
+        all_synonyms = list(set(all_synonyms))
+
+        if all_synonyms:
+            for synonym in all_synonyms:
+                print(synonym)
+        else:
+            print("No synonyms found.")
+
+
+
 def main():
     print(MENU_TEXT)
     choice = input(">> ")
@@ -30,6 +53,8 @@ def main():
 
         if choice == "1":
             get_definition(response_content)
+        elif choice == "2":
+            get_synonyms(response_content)
 
     else:
         print(f"ERROR: {response.status_code}")
