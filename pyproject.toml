@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "dictionary-cli"
-version = "0.0.2"
+version = "0.0.3"
 description = "A simple CLI dictionary for definitions, synonyms, and antonyms from dictionaryapi.dev"
 authors = [
     { name = "Dekoder-py", email = "dekod3r.py@gmail.com" }
@@ -13,7 +13,8 @@ readme = "README.md"
 license = { file = "LICENSE" }
 requires-python = ">=3.8"
 dependencies = [
-    "requests>=2.0.0"
+    "requests>=2.0.0",
+    "rich>=14.0.0"
 ]
 
 [project.urls]
